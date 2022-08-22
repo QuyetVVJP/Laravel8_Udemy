@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home.index', []);
 })->name('home.index');
 
 Route::get('/contact', function(){
     return 'Contact';
 })->name('home.contact');
 
-Route::get('/posts/{id?}', function($id = null){
+Route::get('/posts/{id?}', function($id = 0){
     return 'Blog '.$id;
 });
 
