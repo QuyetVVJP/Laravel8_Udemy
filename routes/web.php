@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,7 @@ $posts = [
 ];
 
 Route::get('/posts', function() use($posts){
+    // dd(request()->all());
     return view('posts.index', ['posts' => $posts]);
 });
 
@@ -46,5 +48,24 @@ Route::get('/posts/{id?}', function($id) use($posts){
 });
 
 Route::view('/', 'home.index')->name('home.index');
+
+
+
+Route::prefix('/fun')->name('fun.')->group(function() use ($posts){
+    Route::get('/resp', function() use($posts){
+        return response($posts, 201)
+            ->header('Content-Type', 'application/json')
+            ->cookie('MY_COOKIE', 'QuyetVV',3600);
+    });
+
+    Route::get('/redirect', function() use($posts){
+        return redirect('/contact');
+    });
+
+    Route::get('/json', function() use($posts){
+        return response()->json($posts);
+    });
+});
+
 
 
