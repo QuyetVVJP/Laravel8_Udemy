@@ -19,7 +19,7 @@ class CommentFactory extends Factory
     {
         return [
             'content' => $this->faker->text,
-            'blog_post_id' => 1
+            'blog_post_id' => 2
         ];
     }
 }
