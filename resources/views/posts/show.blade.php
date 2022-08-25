@@ -13,4 +13,15 @@
     </div>
 @endif
 
+    <h4>Comments</h4>
+    @forelse ($post->comments as $comment)
+        <p>
+            {{$comment->content}}
+        </p>
+        <p class="text-muted">
+            added {{$comment->created_at->diffForHumans()}}
+        </p>
+    @empty
+        <p>No comment yet!</p>
+    @endforelse
 @endsection
