@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCommentsTable extends Migration
+class AddTitleContentToBlogpostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('blog_posts', function (Blueprint $table) {
+            $table->string('title')->default('');
 
             if(env('DB_CONNECTION') === 'sqlite_testing') {
                 $table->text('content')->default('');
@@ -23,8 +22,6 @@ class CreateCommentsTable extends Migration
                 $table->text('content');
             }
 
-            $table->bigInteger('blog_post_id')->unsigned()->index();
-            $table->foreign('blog_post_id')->references('id')->on('blog_posts');
         });
     }
 
@@ -35,6 +32,8 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::table('blog_posts', function (Blueprint $table) {
+            $table->dropColumn(['title', 'content']);
+        });
     }
 }
