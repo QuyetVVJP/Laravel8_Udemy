@@ -25,6 +25,7 @@ class CreateCommentsTable extends Migration
 
             $table->bigInteger('blog_post_id')->unsigned()->index();
             $table->foreign('blog_post_id')->references('id')->on('blog_posts');
+
         });
     }
 
