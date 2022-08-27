@@ -23,6 +23,9 @@ Route::get('/', [HomeController::class,'index'])
     // ->middleware('auth')
     ;
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
+Route::get('/secret', [HomeController::class, 'secret'] )
+->name('secret')
+->middleware('can:home.secret');
 Route::resource('posts', PostController::class);
 
 Auth::routes();
